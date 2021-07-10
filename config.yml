@@ -3,3 +3,28 @@ app:
   host: localhost
   port: 9090
   workers: 1
+providers:
+  - http_provider:
+      name: all_together
+      protocol: https
+      host: my-json-server.typicode.com
+      port: 443
+      routes:
+        - /Feverup/fever_pets_data/pets/
+      mapper:
+        name: field_mapper
+        field_name: kind
+      converters:
+        - weight_converter
+  - http_provider:
+      name: cats_vs_dogs
+      protocol: https
+      host: my-json-server.typicode.com
+      port: 443
+      routes:
+        - /Feverup/fever_pets_data_2/cats/
+        - /Feverup/fever_pets_data_2/dogs/
+      mapper:
+        name: route_mapper
+        rename_fields:
+          picture: photo_url
