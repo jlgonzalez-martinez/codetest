@@ -1,7 +1,7 @@
 """ Management views module """
 from flask import Blueprint
 
-bp = Blueprint('auth', __name__, url_prefix='/management')
+bp = Blueprint('management', __name__, url_prefix='/management')
 
 
 @bp.route('/health', methods=['GET'])
