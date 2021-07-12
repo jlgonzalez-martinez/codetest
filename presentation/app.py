@@ -2,6 +2,7 @@
 import logging
 
 from flask import Flask
+from flask_cors import CORS
 from flasgger import Swagger
 
 from application.services.pet_service import PetService
@@ -13,6 +14,7 @@ from presentation.rest.pet import views as pet_views
 LOGGER = logging.getLogger(__name__)
 
 app = Flask(__name__)
+CORS(app)
 
 
 def start():
