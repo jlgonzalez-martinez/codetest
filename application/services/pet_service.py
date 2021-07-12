@@ -1,5 +1,6 @@
 """ Pet service module """
 import logging
+import operator
 from typing import List, Optional
 
 from application.domain.pet import Pet
@@ -30,16 +31,19 @@ class PetService(metaclass=Singleton):
         else:
             raise ValueError(f'Pet not found with criteria pet_id {pet_id} and provider {provider_name}')
 
-    def get_all(self) -> List[Pet]:
+    def get_all(self, sort_by: str = None, descending: bool = False) -> List[Pet]:
         """
         Get all the pets for all the providers that the api includes
+         Args:
+            sort_by: Field for sorting
+            descending: Indicates if the sorting is desc or not
 
         Returns: List of pets
         """
         pets = []
         for provider in self._providers:
             pets.extend(provider.list())
-        return pets
+        return self._sort_pets(pets, sort_by=sort_by, descending=descending)
 
     def _get_provider_by_name(self, provider_name: str) -> Optional[Provider]:
         """
@@ -52,3 +56,18 @@ class PetService(metaclass=Singleton):
         """
         if self._providers:
             return next(filter(lambda provider: provider.name == provider_name, self._providers), None)
+
+    @staticmethod
+    def _sort_pets(pets: List[Pet], sort_by: Optional[str] = None, descending: bool = False) -> List[Pet]:
+        """
+        Sort pets by a quantifiable parameter (weight, height, length and kind)
+
+        Args:
+            pets: Pets list
+            sort_by: Field for sorting
+            descending: Indicates if the sorting is desc or not
+
+        Returns: Sorted pets
+
+        """
+        return sorted(pets, key=operator.attrgetter(sort_by), reverse=descending)

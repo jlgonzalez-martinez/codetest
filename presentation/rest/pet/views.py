@@ -26,6 +26,16 @@ def list_pets():
         schema:
           type: int
           default: 1
+      - in: query
+        name: sort_by
+        schema:
+          type: str
+          default: height
+      - in: query
+        name: desc
+        schema:
+          type: boolean
+          default: false
     responses:
       200:
         description: The application is up and responding
@@ -34,7 +44,8 @@ def list_pets():
     page = int(request.args.get('page'))
     start = max_results * (page - 1)
     end = max_results * page
-    pets = PetService().get_all()
+    pets = PetService().get_all(sort_by=request.args.get('sort_by'),
+                                descending=request.args.get('desc').lower() == 'True')
     if max_results > len(pets):
         result_pets = jsonify([asdict(pet) for pet in pets])
     elif end >= len(pets):
