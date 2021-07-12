@@ -1,6 +1,7 @@
 """ Pet class module """
 from abc import abstractmethod
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
@@ -14,6 +15,7 @@ class Pet:
     length: int
     description: str
     photo_url: str
+    kind: Optional[str] = None
 
     @classmethod
     @abstractmethod

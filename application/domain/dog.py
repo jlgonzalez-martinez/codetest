@@ -22,4 +22,4 @@ class Dog(Pet):
         """
         return cls(id=pet_dict['id'], provider=pet_dict['provider'], name=pet_dict['name'],
                    weight=pet_dict['weight'], height=pet_dict['height'], length=pet_dict['length'],
-                   description=pet_dict['description'], photo_url=pet_dict['photo_url'])
+                   description=pet_dict['description'], photo_url=pet_dict['photo_url'], kind='Dog')
