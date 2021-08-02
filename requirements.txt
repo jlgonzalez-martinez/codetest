@@ -1,0 +1,6 @@
+cachetools==4.2.2
+dynaconf==3.1.2
+flask==2.0.1
+flask-cors==3.0.10
+flasgger==0.9.5
+requests==2.25.1
